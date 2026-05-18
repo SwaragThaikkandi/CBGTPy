@@ -1,5 +1,5 @@
-import common.cbgt as cbgt
-from common.tracetype import *
+import cbgtpy.common.cbgt as cbgt
+from cbgtpy.common.tracetype import *
 import seaborn as sns
 import matplotlib.pyplot as plt
 import pylab as pl

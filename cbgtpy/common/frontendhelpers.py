@@ -1,4 +1,4 @@
-from common.tracetype import *
+from cbgtpy.common.tracetype import *
 
 
 def duplicate(df, label, opts):

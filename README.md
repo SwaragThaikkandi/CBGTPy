@@ -1,131 +1,245 @@
 # CBGTPy: An extensible cortico-basal ganglia-thalamic framework for modeling biological decisions
-Matthew Clapp Jyotika Bahuguna Cristina Giossi, Jonathan E. Rubin, Timothy Verstynen, Catalina Vich
 
-ABSTRACT: Here we introduce CBGTPy, a virtual environment for designing and testing goal-directed agents with internal dynamics that are modeled off of the cortico-basal-ganglia-thalamic (CBGT) pathways in the mammalian brain, including a physiologically-realistic implementation of dopamine-driven synaptic plasticity. CBGTPy enables researchers to investigate the internal dynamics of the CBGT system during a variety of tasks, allowing for the formation of testable predictions about animal behavior and neural activity. The framework has been designed around the principle of flexibility, such that many experimental parameters in a decision-making paradigm can be easily defined and modified. Here we demonstrate the capabilities of CBGTPy across a range of single and multi-choice tasks, highlighting the ease of set up and the biologically realistic behavior that it produces. We show that CBGTPy is extensible enough to apply to a wide range of experimental protocols and to allow for the implementation of model extensions with minimal developmental effort. 
+**Original authors:** Matthew Clapp, Jyotika Bahuguna, Cristina Giossi, Jonathan E. Rubin, Timothy Verstynen, Catalina Vich
 
-# Below are the instructions to create a conda environment, install all the dependencies required to run CBGTPy and run notebooks.
+CBGTPy is a virtual environment for designing and testing goal-directed agents with internal dynamics modeled off of the cortico-basal-ganglia-thalamic (CBGT) pathways in the mammalian brain, including a physiologically-realistic implementation of dopamine-driven synaptic plasticity. CBGTPy enables researchers to investigate the internal dynamics of the CBGT system during a variety of tasks, allowing for the formation of testable predictions about animal behavior and neural activity.
 
-## Dependencies.
-   * Python 3.8+ (This only needs attention if the user is using Python version < 3, e.g. 2.7. In case, Python version > 3 is been used, the installation script will install the correct version of Python and other dependencies)
-   * gcc (already installed in Linux by default, but not in Mac)
-   * Xcode (Mac users)
-   * CLT  (Mac users)
+---
 
-Xcode and CLT (for Mac users) can be installed by running this on the command line:
-   
-   	$ xcode-select --install
-   
-gcc (for Mac users) can be installed by running this on commad line:
+> **This is a packaged fork of the [original CBGTPy](https://github.com/CoAxLab/CBGTPy) by [CoAxLab](https://github.com/CoAxLab).**
+>
+> The sole purpose of this fork is to make CBGTPy installable as a standard Python package via `pip`. No changes have been made to the core simulation logic, algorithms, or scientific functionality. All source modules have been reorganized under a `cbgtpy` namespace package so they can be properly installed and imported without manual path manipulation.
+>
+> **If you use CBGTPy in your research, please cite the original authors and the [original repository](https://github.com/CoAxLab/CBGTPy).**
 
-     	$ brew install gcc
+---
 
+## Installation
 
-## Install conda on your machine.
-* Download from here https://docs.conda.io/projects/miniconda/en/latest/
-	
-* Change the directory to where the executable file was downloaded:
+### Prerequisites
 
-  		$ cd <directory where executable was downloaded>
-  	
-* In the directory, where the executable file (eg. Miniconda3-latest-MacOSX-x86_64.sh) is downloaded, type the following on your command line:
+- **Python 3.8+**
+- **A C compiler** — required for building Cython extensions
+  - **Linux:** gcc (usually pre-installed)
+  - **Mac:** Xcode Command Line Tools
+    ```bash
+    xcode-select --install
+    ```
+    Optionally install gcc via Homebrew:
+    ```bash
+    brew install gcc
+    ```
+  - **Windows:** Microsoft Visual C++ Build Tools or MSVC (install via [Visual Studio Build Tools](https://visualstudio.microsoft.com/visual-cpp-build-tools/))
 
-	* Mac
- 
-			$ bash Miniconda3-latest-MacOSX-x86_64.sh
- 	* Linux
-  
-   			$ bash Miniconda3-latest-Linux-x86_64.sh
+### Install directly with pip (recommended)
 
+```bash
+pip install git+https://github.com/SwaragThaikkandi/CBGTPy.git
+```
 
-## Download CBGTPy-main folder.
-	
- 	$  git clone https://github.com/CoAxLab/CBGTPy.git
+This will automatically install all dependencies (NumPy, Pandas, SciPy, Matplotlib, Seaborn, Cython, PyYAML, Pathos) and compile the Cython extensions.
 
- * Change the directory:
+#### Optional: with Ray support
 
-		$ cd CBGTPy
-  	
+```bash
+pip install "cbgtpy[ray] @ git+https://github.com/SwaragThaikkandi/CBGTPy.git"
+```
 
-## Create a conda environment by typing the following on the command line. Choose an environment name, e.g. cbgtpy_env.
-	$ conda create -n <env name> python=3.8 pyyaml
-	
-E.g., if the <env name> is "cbgtpy_env", then use:
- 
-	$ conda create -n cbgtpy_env python=3.8 pyyaml
- 
-## Activate the conda environment.
-	$ conda activate cbgtpy_env
- or 
-  	
-   	$ source activate cbgtpy_env
-   
-## Run the installation file. 
+#### Optional: with development tools (Jupyter)
 
-You will be asked which multiprocessing library you want to install. Although "ray" is the recommended version, it may cause problems on some machines.
-Hence CBGTPy is designed to use the default Python multiprocessing APIs, that need a third-party library (pathos). Pathos is installed by default. 
-You can choose to install ray by typing "y" to the prompted question. If "n" is typed, ray will not be installed. 
-Some basic benchmarking for the three options - (a) no multiprocessing (b) with pathos (c) with ray - are stated below.
-	
-* For 5 simulations, 3 trials each on an Apple M1 machine with OS Ventura 13.2.1:
- (a) none: 664s; (b) pathos: 331s; (c) ray:  266s.
-  	
-* For 5 simulations, 3 trials each on a 11th Gen Intel Core(TM) i7-11800H with Windows 10:
- (a) none: 525s; (b) pathos: 386s; (c) ray: 232s.
+```bash
+pip install "cbgtpy[dev] @ git+https://github.com/SwaragThaikkandi/CBGTPy.git"
+```
 
-		$ python install.py <env name>
+### Install from cloned source
 
-	* For the environment name cbgtpy_env:
+```bash
+git clone https://github.com/SwaragThaikkandi/CBGTPy.git
+cd CBGTPy
+pip install .
+```
 
-  			$ python install.py cbgtpy_env
- 
-## Test by running:
-	$ ipython
+For an editable/development install:
+```bash
+pip install -e ".[dev]"
+```
 
-* On the ipython prompt:
+### Verifying the installation
 
- 		$ import pathos
+```python
+import cbgtpy
+print(cbgtpy.__version__)
+```
 
-## If there is an error, deactivate and activate the conda environment again.
+## What changed from the original repository
 
-## If you plan to use "ray", start the ray server as described below. If not, skip this step.
-* On the shell prompt:
+This fork restructures the project into a proper Python package. The table below summarizes all differences:
 
-		$ ray start --head --port=6379 --redis-password="cbgt2"
-  
-* The above line should be sufficient to start the ray server. In case is not, it would give back the machine IP. The machine IP could be used in the following command:
+| Aspect | Original ([CoAxLab/CBGTPy](https://github.com/CoAxLab/CBGTPy)) | This fork (packaged) |
+|--------|----------|------|
+| **Installation** | `conda create` + `python install.py <env>` | `pip install git+https://github.com/SwaragThaikkandi/CBGTPy.git` |
+| **Dependencies** | Manually managed via conda `environment.yml` | Automatically resolved by pip via `pyproject.toml` |
+| **Source layout** | `common/`, `nchoice/`, `stopsignal/` at repo root | Nested under `cbgtpy/` package directory |
+| **Imports** | `import common.cbgt as cbgt` (requires `sys.path` hack) | `import cbgtpy.common.cbgt as cbgt` (works anywhere after install) |
+| **Cython build** | Run `setup.py` from `notebooks/` dir, manually move `.so`/`.pyd` files | Handled automatically by `pip install` |
+| **Notebooks** | Need `sys.path.append('../')` at top | Work directly after package install |
+| **Multiprocessing setup** | Interactive prompt during `install.py` | Install extras: `pip install "cbgtpy[ray]"` |
+| **Simulation code** | — | **Unchanged** |
 
-  		$ ray start --address='< machine ip>:6379' --redis-password='cbgt2'
-    
-  For e.g. for IP 192.168.1.167:
+### Import migration reference
 
-  		$ ray start --address='192.168.1.167:6379' --redis-password='cbgt2'
+If you have existing scripts written for the original CBGTPy, update imports as follows:
 
+| Original import | Packaged import |
+|----------------|-----------------|
+| `import common.cbgt as cbgt` | `import cbgtpy.common.cbgt as cbgt` |
+| `import common.pipeline_creation as pl_creat` | `import cbgtpy.common.pipeline_creation as pl_creat` |
+| `import common.plotting_functions as plt_func` | `import cbgtpy.common.plotting_functions as plt_func` |
+| `import common.plotting_helper_functions as plt_help` | `import cbgtpy.common.plotting_helper_functions as plt_help` |
+| `import common.postprocessing_helpers as post_help` | `import cbgtpy.common.postprocessing_helpers as post_help` |
+| `import nchoice.paramfile_nchoice as paramfile` | `import cbgtpy.nchoice.paramfile_nchoice as paramfile` |
+| `import stopsignal.paramfile_stopsignal as paramfile` | `import cbgtpy.stopsignal.paramfile_stopsignal as paramfile` |
 
+**General rule:** prefix all imports with `cbgtpy.` and remove any `sys.path.append` lines.
 
-## From the shell prompt, start jupyter notebooks. There are three example notebooks provided which can be executed from the jupyter notebook environment.
-* network_simulation-n-choice.ipynb (Runs a n-choice task)
-* network_simulation-stop-signal.ipynb (Runs a stop-signal task)
-* network_simulation-n-choice-optostim.ipynb (Shows an example of optogenetic stimulation during a n-choice task)
- 
-		$ jupyter-notebook 
- 	
-  	or
-  		
-        	$ jupyter notebook
+## Usage
 
-## If the libraries pathos and ray are not still visible (gives an error saying they are not found) in the jupyter notebook, then execute these commands at the beginning of the notebook.
-	
-        import sys
-	import yaml
-	with open('environment.yml') as f:
-	    doc = yaml.safe_load(f)
-	    
-	sys.path.append(doc['prefix']+"/lib/python3.8/site-packages/")
+### Quick start
 
-## Only if you want to delete the conda environment !!!
-	$ conda remove --name cbgtpy_env --all
+```python
+import cbgtpy.common.cbgt as cbgt
+import cbgtpy.common.pipeline_creation as pl_creat
+import cbgtpy.common.plotting_functions as plt_func
+import cbgtpy.common.plotting_helper_functions as plt_help
+import cbgtpy.common.postprocessing_helpers as post_help
 
+# Choose experiment type
+pl_creat.choose_pipeline('n-choice')  # or 'stop-signal'
+```
 
+### Example notebooks
 
+Example notebooks are provided in the `notebooks/` directory of the repository:
 
+| Notebook | Description |
+|----------|-------------|
+| `network_simulation-n-choice.ipynb` | N-choice decision task simulation |
+| `network_simulation-stop-signal.ipynb` | Stop-signal (response inhibition) task |
+| `network_simulation-n-choice-optostim.ipynb` | N-choice with optogenetic stimulation |
 
+To run notebooks after installing from source:
+```bash
+cd CBGTPy/notebooks
+jupyter notebook
+```
+
+If you installed via pip (not from cloned source), clone the repo separately to get notebooks:
+```bash
+git clone https://github.com/SwaragThaikkandi/CBGTPy.git
+cd CBGTPy/notebooks
+jupyter notebook
+```
+
+## Multiprocessing
+
+CBGTPy supports three multiprocessing modes:
+
+| Mode | Install command | Notes |
+|------|----------------|-------|
+| **Pathos** (default) | Included automatically | Good cross-platform support |
+| **Ray** | `pip install "cbgtpy[ray] @ git+https://github.com/SwaragThaikkandi/CBGTPy.git"` | Better performance, requires server start |
+| **Single-threaded** | Default install | No parallel execution |
+
+To start Ray server (if using Ray):
+```bash
+ray start --head --port=6379 --redis-password="cbgt2"
+```
+
+### Benchmarks (5 simulations, 3 trials each)
+
+| Machine | Single-threaded | Pathos | Ray |
+|---------|----------------|--------|-----|
+| Apple M1, macOS Ventura 13.2.1 | 664s | 331s | 266s |
+| Intel i7-11800H, Windows 10 | 525s | 386s | 232s |
+
+## Project Structure
+
+```
+CBGTPy/
+├── cbgtpy/                          # Installable Python package
+│   ├── __init__.py                  # Package root (version, top-level imports)
+│   ├── common/                      # Core framework modules
+│   │   ├── backend.py               # Pipeline computation architecture
+│   │   ├── cbgt.py                  # Central module (imports core components)
+│   │   ├── tracetype.py             # Custom Trace type for pandas ExtensionDtype
+│   │   ├── frontendhelpers.py       # Utility functions
+│   │   ├── agentmatrixinit.py       # Agent/synapse initialization
+│   │   ├── pipeline_creation.py     # High-level pipeline composition
+│   │   ├── generateepochs.py        # Trial epoch/stimulus timing generation
+│   │   ├── generate_opt_dataframe.py # Optogenetic stimulation dataframes
+│   │   ├── qvalues.py               # Q-value computation (reinforcement learning)
+│   │   ├── pathwayconstruct.py      # Neural pathway/connection specs
+│   │   ├── plotting_functions.py    # Visualization
+│   │   ├── plotting_helper_functions.py
+│   │   ├── postprocessing_helpers.py # Post-simulation analysis
+│   │   └── agent_timestep.pyx       # Base Cython timestep module
+│   ├── nchoice/                     # N-choice decision task
+│   │   ├── interface_nchoice.py     # Task entry point (mega_loop)
+│   │   ├── paramfile_nchoice.py     # Default parameters
+│   │   ├── init_params_nchoice.py   # Parameter initialization helpers
+│   │   ├── popconstruct_nchoice.py  # Population construction
+│   │   └── agent_timestep_plasticity.pyx  # Cython timestep with plasticity
+│   └── stopsignal/                  # Stop-signal task
+│       ├── interface_stopsignal.py  # Task entry point (mega_loop)
+│       ├── paramfile_stopsignal.py  # Default parameters
+│       ├── init_params_stopsignal.py
+│       ├── popconstruct_stopsignal.py
+│       ├── generate_stop_dataframe.py
+│       └── agent_timestep_stop_signal.pyx  # Cython timestep for stop-signal
+├── notebooks/                       # Example Jupyter notebooks
+├── pyproject.toml                   # Package metadata and dependencies
+├── setup.py                         # Cython extension build configuration
+├── MANIFEST.in                      # Source distribution file list
+└── README.md
+```
+
+## Dependencies
+
+All dependencies are installed automatically via pip:
+
+| Package | Minimum version | Purpose |
+|---------|----------------|---------|
+| numpy | 1.20 | Numerical computation |
+| pandas | 1.3 | DataFrames and data manipulation |
+| scipy | 1.7 | Statistical functions |
+| matplotlib | 3.4 | Plotting |
+| seaborn | 0.11 | Statistical visualization |
+| Cython | 0.29 | Compiling performance-critical timestep loops |
+| pyyaml | 5.4 | YAML configuration |
+| pathos | 0.2.8 | Multiprocessing (default backend) |
+
+**Optional:**
+| Package | Install extra | Purpose |
+|---------|--------------|---------|
+| ray | `[ray]` | Distributed multiprocessing |
+| jupyter, notebook, ipykernel | `[dev]` | Running example notebooks |
+
+## Troubleshooting
+
+### Cython compilation fails
+Ensure a C compiler is available. On Windows, install [Visual Studio Build Tools](https://visualstudio.microsoft.com/visual-cpp-build-tools/). On Mac, run `xcode-select --install`.
+
+### `ModuleNotFoundError: No module named 'cbgtpy'`
+Ensure you installed the package (`pip install ...`), not just cloned the repo. If using notebooks from a cloned repo, run `pip install -e .` from the repo root first.
+
+### Pathos/Ray import errors after install
+Try deactivating and reactivating your virtual environment or conda environment, then verify:
+```python
+import pathos
+```
+
+## Credits
+
+- **Original project:** [CoAxLab/CBGTPy](https://github.com/CoAxLab/CBGTPy)
+- **Original authors:** Matthew Clapp, Jyotika Bahuguna, Cristina Giossi, Jonathan E. Rubin, Timothy Verstynen, Catalina Vich
+- **Packaging fork:** [SwaragThaikkandi/CBGTPy](https://github.com/SwaragThaikkandi/CBGTPy)

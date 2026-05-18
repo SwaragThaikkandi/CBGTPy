@@ -1,6 +1,6 @@
-import common.cbgt as cbgt
+import cbgtpy.common.cbgt as cbgt
 # from frontendhelpers import *
-from common.tracetype import *
+from cbgtpy.common.tracetype import *
 # import init_params as par
 # import popconstruct as popconstruct
 # import qvalues as qval

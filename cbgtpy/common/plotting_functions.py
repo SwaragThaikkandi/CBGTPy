@@ -1,9 +1,9 @@
-from common.tracetype import *
-import common.cbgt as cbgt
+from cbgtpy.common.tracetype import *
+import cbgtpy.common.cbgt as cbgt
 import seaborn as sns
 import matplotlib.pyplot as plt
 import pylab as pl
-import common.plotting_helper_functions as plt_help
+import cbgtpy.common.plotting_helper_functions as plt_help
 
 # figure_dir = "./Figures/"
 # data_dir = "./Data/"

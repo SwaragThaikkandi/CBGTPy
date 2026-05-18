@@ -1,0 +1,5 @@
+recursive-include cbgtpy *.pyx
+recursive-include cbgtpy *.py
+include pyproject.toml
+include setup.py
+include README.md

@@ -1,4 +1,4 @@
-from common.popconstruct import *
+from cbgtpy.common.popconstruct import *
 
 
 simplepathways = pd.DataFrame(

@@ -1,7 +1,7 @@
 import numpy as np
 import random
 import pandas as pd
-from common.tracetype import *
+from cbgtpy.common.tracetype import *
 
 
 

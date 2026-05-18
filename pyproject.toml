@@ -1,0 +1,41 @@
+[build-system]
+requires = ["setuptools>=64", "wheel", "Cython>=0.29", "numpy>=1.20"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "cbgtpy"
+version = "0.1.0"
+description = "An extensible cortico-basal ganglia-thalamic framework for modeling biological decisions"
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.8"
+authors = [
+    {name = "Matthew Clapp"},
+    {name = "Jyotika Bahuguna"},
+    {name = "Cristina Giossi"},
+    {name = "Jonathan E. Rubin"},
+    {name = "Timothy Verstynen"},
+    {name = "Catalina Vich"},
+]
+dependencies = [
+    "numpy>=1.20",
+    "pandas>=1.3",
+    "scipy>=1.7",
+    "matplotlib>=3.4",
+    "seaborn>=0.11",
+    "Cython>=0.29",
+    "pyyaml>=5.4",
+    "pathos>=0.2.8",
+]
+
+[project.optional-dependencies]
+ray = ["ray>=2.0"]
+dev = ["jupyter", "notebook", "ipykernel"]
+
+[tool.setuptools.packages.find]
+include = ["cbgtpy*"]
+
+[tool.setuptools.package-data]
+"cbgtpy.common" = ["*.pyx"]
+"cbgtpy.nchoice" = ["*.pyx"]
+"cbgtpy.stopsignal" = ["*.pyx"]

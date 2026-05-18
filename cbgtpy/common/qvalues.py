@@ -1,5 +1,5 @@
-from common.frontendhelpers import *
-from common.tracetype import *
+from cbgtpy.common.frontendhelpers import *
+from cbgtpy.common.tracetype import *
 import copy
 import pdb
 import numpy as np

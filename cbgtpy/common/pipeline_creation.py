@@ -1,12 +1,12 @@
 # 1. IMPORTING SCRIPTS
 
-import common.cbgt as cbgt
-from common.frontendhelpers import *
-from common.tracetype import *
-import common.qvalues as qval
-import common.generateepochs as gen
-import common.generate_opt_dataframe as gen_opt
-from common.agentmatrixinit import *
+import cbgtpy.common.cbgt as cbgt
+from cbgtpy.common.frontendhelpers import *
+from cbgtpy.common.tracetype import *
+import cbgtpy.common.qvalues as qval
+import cbgtpy.common.generateepochs as gen
+import cbgtpy.common.generate_opt_dataframe as gen_opt
+from cbgtpy.common.agentmatrixinit import *
 import pdb
 
 experiment_choice = None
@@ -28,16 +28,16 @@ def choose_pipeline(choice):
     experiment_choice = choice
 
     if choice == 'n-choice':
-        import nchoice.init_params_nchoice as par
-        import nchoice.popconstruct_nchoice as popconstruct
-        import nchoice.interface_nchoice as interface
+        import cbgtpy.nchoice.init_params_nchoice as par
+        import cbgtpy.nchoice.popconstruct_nchoice as popconstruct
+        import cbgtpy.nchoice.interface_nchoice as interface
 
 
     if choice == 'stop-signal':
-        import stopsignal.init_params_stopsignal as par
-        import stopsignal.popconstruct_stopsignal as popconstruct
-        import stopsignal.interface_stopsignal as interface
-        import stopsignal.generate_stop_dataframe as gen_stop
+        import cbgtpy.stopsignal.init_params_stopsignal as par
+        import cbgtpy.stopsignal.popconstruct_stopsignal as popconstruct
+        import cbgtpy.stopsignal.interface_stopsignal as interface
+        import cbgtpy.stopsignal.generate_stop_dataframe as gen_stop
 
 #     return [par,popconstruct,ml]
 #     print("par in choose_pipeline",par)

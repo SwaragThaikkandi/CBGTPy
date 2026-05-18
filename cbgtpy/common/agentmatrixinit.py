@@ -1,5 +1,5 @@
 import numpy as np
-from common.tracetype import *
+from cbgtpy.common.tracetype import *
 
 def CreateSynapses(popdata, cons, effs, plasticity):
     connection = np.zeros((len(popdata),len(popdata))).tolist()
