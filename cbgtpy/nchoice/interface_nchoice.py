@@ -69,7 +69,18 @@ def mega_loop(self):
     opt_amp = [ self.opt_signal_amplitude[i] for i in opt_iter]
     opt_onset = [ self.opt_signal_onset[i] for i in opt_iter]
     
-    presented_stimulus = 1
+    # Per-channel evidence pattern (len = #channels). Default uniform (scalar 1)
+    # = original behavior. A task can pass config['stimulus_pattern'] (e.g. a
+    # zero-sum, mean-1 vector) to give one channel a sensory-evidence advantage
+    # at the cortical input WITHOUT changing maxstim (the global scale) or the
+    # total drive. Used as: extstim = gain * presented_stimulus * maxstim.
+    _stim_pattern = getattr(self, 'stimulus_pattern', None)
+    if _stim_pattern is None:
+        presented_stimulus = 1
+    else:
+        presented_stimulus = np.asarray(_stim_pattern, dtype=float)
+        assert len(presented_stimulus) == len(actionchannels), \
+            "stimulus_pattern length must equal number of action channels"
     self.chosen_action = None
 
     for action_idx in range(len(actionchannels)):
