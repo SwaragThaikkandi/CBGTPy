@@ -1,5 +1,5 @@
 """
-This file is an attemt to convert CBGTPy's origina; `popdata` into per neuron parameter arrays. 
+This file is an attemt to convert CBGTPy's origina; `popdata` into per neuron parameter arrays! 
 By default CBGTPy stores network parameters in a pandas dataframe popdata (refer function `helper_popconstruct'
 in file `https://github.com/CoAxLab/CBGTPy/blob/main/nchoice/popconstruct_nchoice.py`, line 24). 
 This file has one row per population. values are wrapped in 
